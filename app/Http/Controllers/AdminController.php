@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
+use App\Http\Resources\FoodConverter;
+use App\Models\Food;
 
 class AdminController extends Controller
 {
@@ -25,8 +26,14 @@ class AdminController extends Controller
     {
         return view('admin-home');
     }
-    // public function adminHome()
-    // {
-    //     return view('home');
-    // }
+
+
+    public function adminFoods()
+    {
+        $foods = Food::latest()->paginate(5);
+        return view('content-admin',compact('foods'))
+        ->with('i', (request()->input('page', 1) - 1) * 5);
+ 
+        // return view('content-admin');
+    }
 }

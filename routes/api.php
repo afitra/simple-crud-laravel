@@ -18,4 +18,17 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('/foods', FoodController::class);
+// Route::resource('faq', 'ProductFaqController', [
+//     'names' => [
+//         'index' => 'faq',
+//         'store' => 'faq.new',
+//         // etc...
+//     ]
+// ]);
+
+ 
+Route::resource('foods', FoodController::class,[
+    'names'=>[
+        'update'=>'foods.update'
+    ]
+]) ;
