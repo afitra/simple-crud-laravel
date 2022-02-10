@@ -14,11 +14,19 @@ class FoodController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+  
     public function index()
     {
         
+         
         $food = Food::latest()->get();
         return response()->json(FoodConverter::collection($food));
+
+       
+       
+       
+        
       
     }
 
@@ -117,7 +125,8 @@ class FoodController extends Controller
         $food->rating = $request->rating;
         $food->save();
         
-        return response()->json(['Food updated successfully.', new FoodConverter($food)]);
+        // return response()->json(['Food updated successfully.', new FoodConverter($food)]);
+        return redirect()->route('admin.foods');
     }
 
     /**
@@ -130,6 +139,6 @@ class FoodController extends Controller
     {
         $food->delete();
 
-        return response()->json('Food deleted successfully');
+        return redirect()->route('admin.foods');
     }
 }
