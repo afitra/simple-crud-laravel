@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Food;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
+use App\Http\Resources\FoodConverter;
 class FoodController extends Controller
 {
     /**
@@ -14,7 +16,10 @@ class FoodController extends Controller
      */
     public function index()
     {
-        //
+        
+        $food = Food::latest()->get();
+        return response()->json(FoodConverter::collection($food));
+      
     }
 
     /**
@@ -45,10 +50,11 @@ class FoodController extends Controller
        ]);
     
         if($validator->fails()){
-            echo "OKOKO";
-            // return back()
-            // ->withInput($request->all())
-            // ->withErrors($validator);
+            
+            return back()
+            ->withInput($request->all())
+            ->withErrors($validator);
+
             // return response()->json($validator->errors());   
         }
 
@@ -92,6 +98,26 @@ class FoodController extends Controller
     public function update(Request $request, Food $food)
     {
         //
+        $validator = Validator ::make( $request->all(),[
+            'name' => 'required|string|min:1',
+            'price' => 'required|string|min:1',
+            'category' => 'required|string|min:1',
+            'rating' => 'required|string|min:1',
+          
+           ]);
+
+ 
+        if($validator->fails()){
+            return response()->json($validator->errors());       
+        }
+
+        $food->name = $request->name;
+        $food->price = $request->price;
+        $food->category = $request->category;
+        $food->rating = $request->rating;
+        $food->save();
+        
+        return response()->json(['Food updated successfully.', new FoodConverter($food)]);
     }
 
     /**
@@ -102,6 +128,8 @@ class FoodController extends Controller
      */
     public function destroy(Food $food)
     {
-        //
+        $food->delete();
+
+        return response()->json('Food deleted successfully');
     }
 }
