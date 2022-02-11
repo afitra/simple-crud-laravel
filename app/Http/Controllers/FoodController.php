@@ -69,7 +69,7 @@ class FoodController extends Controller
 
         Food::create($request->all());
         // echo "yess";
-        return redirect()->route('home')
+        return redirect()->route('admin.foods')
                         ->with('success','Product created successfully.');
     
     }

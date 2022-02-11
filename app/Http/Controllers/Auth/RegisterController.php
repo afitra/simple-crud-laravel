@@ -69,6 +69,26 @@ class RegisterController extends Controller
      */
     protected function create(Request $request)
     {
+        if($request['password_confirmation']!==$request['password'] ){
+            return back()->withError('You are password not sycronize');
+        }
+
+        $this->validate($request, [
+            'name' => 'required|min:1',
+            'email' => 'required|email',
+            'is_admin' => 'required',
+            'password' => 'required|min:9',
+        ]);
+   
+
+        if($validator->fails()){
+          
+           
+            return back()
+            ->withInput($request->all())
+            ->withErrors($validator);
+        
+        }
    
           User::create([
             'name' => $request['name'],

@@ -44,9 +44,17 @@ class LoginController extends Controller
    
         $this->validate($request, [
             'email' => 'required|email',
-            'password' => 'required',
+            'password' => 'required|min:9',
         ]);
    
+        if($validator->fails()){
+          
+           
+            return back()
+            ->withInput($request->all())
+            ->withErrors($validator);
+        
+        }
         if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
         {
             if (auth()->user()->is_admin == 1) {
