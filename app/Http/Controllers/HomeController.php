@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Food;
+use App\Http\Resources\FoodConverter;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,7 +24,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+
+        $foods = Food::all();
+        // return view("web",compact("foods"));
+ 
+        // return response()->json(FoodConverter::collection($food));
+        // return view('web');
     }
     // public function adminHome()
     // {
