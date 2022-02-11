@@ -32,6 +32,18 @@
                        
                         <li class="nav-item"><a class="nav-link" href="#team">Team</a></li>
                         <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                        {{-- @if (Route::has('logout')) --}}
+                        @if (Auth::user()->is_admin!== 1)
+                        <li class="nav-item "><a class="  btn btn-primary btn-l text-uppercase" href="{{ route('logout') }}" onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">{{ __('Logout') }}</a></li>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                        @else
+                        <li class="nav-item"><a class="btn btn-primary btn-l text-uppercase" href="/admin">Admin Page</a></li>
+                        @endif
+
+                        
                         {{-- @if( Auth::user()->name )
                         <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
                                      
@@ -137,7 +149,7 @@
                         <div class="team-member">
                             <img class="mx-auto rounded-circle" src="{{asset('avatar.jpg')}}" alt="..." />
                             <h4>Aqshal Arna Ramadhani</h4>
-                            <p class="text-muted">Project Menejer</p>
+                            <p class="text-muted">Project Menejer - 19104410054</p>
                             <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
                             <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
                             <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-linkedin-in"></i></a>
@@ -157,7 +169,7 @@
                         <div class="team-member">
                             <img class="mx-auto rounded-circle" src="{{asset('avatar.jpg')}}" alt="..." />
                             <h4>Ambal Suharyudi Onoajii</h4>
-                            <p class="text-muted">Cloud Architect</p>
+                            <p class="text-muted">Cloud Architect - 19104410063</p>
                             <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
                             <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
                             <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-linkedin-in"></i></a>
@@ -168,7 +180,7 @@
                         <div class="team-member">
                             <img class="mx-auto rounded-circle" src="{{asset('avatar.jpg')}}" alt="..." />
                             <h4>M. Ramadani Akbar Ariyadi</h4>
-                            <p class="text-muted">Fronted Engineer</p>
+                            <p class="text-muted">Fronted Engineer - 19104410062</p>
                             <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
                             <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
                             <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-linkedin-in"></i></a>

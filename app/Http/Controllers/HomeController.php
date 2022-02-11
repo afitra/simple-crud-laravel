@@ -26,14 +26,9 @@ class HomeController extends Controller
     {
 
         $foods = Food::all();
-        // return view("web",compact("foods"));
- 
-        // return response()->json(FoodConverter::collection($food));
-        // return view('web');
+        
+        return view("web", compact("foods"));
     }
-    // public function adminHome()
-    // {
-    //     return view('admin-home');
-    // }
+     
     
 }
