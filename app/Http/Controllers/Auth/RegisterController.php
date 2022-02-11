@@ -73,13 +73,15 @@ class RegisterController extends Controller
             return back()->withError('You are password not sycronize');
         }
 
-        $this->validate($request, [
+         
+   
+        $validator = Validator ::make( $request->all(),[
             'name' => 'required|min:1',
             'email' => 'required|email',
             'is_admin' => 'required',
             'password' => 'required|min:9',
-        ]);
-   
+          
+           ]);
 
         if($validator->fails()){
           
