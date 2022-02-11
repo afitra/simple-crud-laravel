@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FoodController;
+use App\Http\Controllers\Auth\RegisterController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,16 +16,16 @@ use App\Http\Controllers\FoodController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('register', [RegisterController::class, 'index'])->name('register.index');
+Route::post('register', [RegisterController::class, 'create'])->name('register.create');
 
 // Route::resource('foods', FoodController::class);
 
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+ 
 Route::get('admin', [AdminController::class, 'index'])->name('admin.home')->middleware('is_admin');
 Route::get('admin/foods', [AdminController::class, 'adminFoods'])->name('admin.foods')->middleware('is_admin');
-Route::get('home', [HomeController::class, 'index'])->name('home');
+ 
